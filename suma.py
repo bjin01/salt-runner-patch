@@ -378,9 +378,13 @@ def patch(server, target_system, **kwargs):
         log.error(err_msg)
         return {'Error': err_msg}
 
-    if errata_list:
+    if errata_list and len(errata_list) > 0:
         for x in errata_list:
             errata_id_list.append(x['id'])
+    else:
+        info_msg = 'It looks like the system is fully patched: {0}'.format(server)
+        log.info(info_msg)
+        return {'Info': info_msg}
 
     if 'delay' in kwargs:
         delay = kwargs['delay']
